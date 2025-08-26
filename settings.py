@@ -85,7 +85,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "society_management",
-        "USER": "root",
+        "USER": "society_user",
         "PASSWORD": "UmarDev12345",
         "HOST": "127.0.0.1",
         "PORT": "3306",
