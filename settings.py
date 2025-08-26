@@ -87,7 +87,7 @@ DATABASES = {
         "NAME": "society_management",
         "USER": "society_user",
         "PASSWORD": "UmarDev12345",
-        "HOST": "127.0.0.1",
+        "HOST": "localhost",
         "PORT": "3306",
     }
 }
