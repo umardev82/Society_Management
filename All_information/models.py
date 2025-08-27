@@ -98,7 +98,7 @@ class Property_info(models.Model):
     property_type = models.ForeignKey(PropertyType, on_delete=models.CASCADE)
     property_number = models.CharField(max_length=200,null=True,unique=True)  # Ensures uniqueness
     floor = models.ForeignKey('Floor', on_delete=models.SET_NULL, null=True, blank=True)
-    unit_type = models.ForeignKey('UnitType', on_delete=models.CASCADE)
+    unit_type = models.ForeignKey('UnitType', on_delete=models.CASCADE,null=True, blank=True)
     number_of_bedrooms = models.PositiveIntegerField(null=True, blank=True)
     number_of_bathrooms = models.PositiveIntegerField(null=True, blank=True)
     balcony_or_patio = models.CharField(max_length=3, choices=[('No', 'No'), ('Yes', 'Yes')], default='No')
