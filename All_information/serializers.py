@@ -71,13 +71,75 @@ class Property_info_serializer_for_display_data(serializers.ModelSerializer):
         
     
         
+# class Property_info_serializer(serializers.ModelSerializer):
+#     # block_name = Block_info_serlializer()
+#     documents = serializers.ListField(
+#         child=serializers.FileField(),
+#         write_only=True,
+#         required=False
+#     )
+#     property_value = serializers.PrimaryKeyRelatedField(
+#         queryset=Currency.objects.filter(status='active'),
+#         required=False,
+#         allow_null=True
+#     )
+
+#     class Meta:
+#         model = Property_info
+#         fields = [
+#             'property_id',
+#             'block_name',
+#             'building_name',
+#             'property_name',
+#             'property_type',
+#             'property_number',
+#             'unit_type',
+#             'floor',
+#             'number_of_bedrooms',
+#             'number_of_bathrooms',
+#             'balcony_or_patio',
+#             'parking_space',
+#             'number_of_halls',
+#             'street_address',
+#             'property_area',
+#             'property_value',
+#             'any_note',
+#             'amenity_name',
+#             'is_active',  # New field for Active/In-Active
+#             'documents',  # New field for Document Attachment
+#             'is_rented',  # New field for Rented (Yes/No)
+#         ]
+    
 class Property_info_serializer(serializers.ModelSerializer):
-    # block_name = Block_info_serlializer()
     documents = serializers.ListField(
         child=serializers.FileField(),
         write_only=True,
-        required=False
+        required=False,
+        allow_empty=True
     )
+
+    # ✅ Optional fields
+    building_name = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    property_name = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    amenity_name = serializers.PrimaryKeyRelatedField(
+        queryset=Amenity.objects.all(),
+        many=True,
+        required=False,
+        allow_null=True
+    )
+    unit_type = serializers.PrimaryKeyRelatedField(
+        queryset=UnitType.objects.all(),
+        required=False,
+        allow_null=True
+    )
+    floor = serializers.PrimaryKeyRelatedField(
+        queryset=Floor.objects.all(),
+        required=False,
+        allow_null=True
+    )
+    number_of_bedrooms = serializers.IntegerField(required=False, allow_null=True)
+    number_of_bathrooms = serializers.IntegerField(required=False, allow_null=True)
+    number_of_halls = serializers.IntegerField(required=False, allow_null=True)
     property_value = serializers.PrimaryKeyRelatedField(
         queryset=Currency.objects.filter(status='active'),
         required=False,
@@ -105,12 +167,11 @@ class Property_info_serializer(serializers.ModelSerializer):
             'property_value',
             'any_note',
             'amenity_name',
-            'is_active',  # New field for Active/In-Active
-            'documents',  # New field for Document Attachment
-            'is_rented',  # New field for Rented (Yes/No)
+            'is_active',
+            'documents',
+            'is_rented',
         ]
-    
-    
+   
     def create(self, validated_data):
      files = validated_data.pop('documents', [])
      amenities = validated_data.pop('amenity_name', [])
