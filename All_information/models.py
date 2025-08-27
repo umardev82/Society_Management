@@ -93,22 +93,22 @@ class Currency(models.Model):
 class Property_info(models.Model):
     property_id = models.AutoField(primary_key=True)
     block_name = models.ForeignKey('Block_info', on_delete=models.CASCADE)
-    building_name = models.CharField(max_length=200)
-    property_name = models.CharField(max_length=200)
+    building_name = models.CharField(max_length=200,null=True, blank=True)
+    property_name = models.CharField(max_length=200,null=True, blank=True)
     property_type = models.ForeignKey(PropertyType, on_delete=models.CASCADE)
     property_number = models.CharField(max_length=200,null=True,unique=True)  # Ensures uniqueness
     floor = models.ForeignKey('Floor', on_delete=models.SET_NULL, null=True, blank=True)
     unit_type = models.ForeignKey('UnitType', on_delete=models.CASCADE)
-    number_of_bedrooms = models.PositiveIntegerField()
-    number_of_bathrooms = models.PositiveIntegerField()
+    number_of_bedrooms = models.PositiveIntegerField(null=True, blank=True)
+    number_of_bathrooms = models.PositiveIntegerField(null=True, blank=True)
     balcony_or_patio = models.CharField(max_length=3, choices=[('No', 'No'), ('Yes', 'Yes')], default='No')
     parking_space = models.CharField(max_length=3, choices=[('No', 'No'), ('Yes', 'Yes')], default='No')
-    number_of_halls = models.PositiveIntegerField()
+    number_of_halls = models.PositiveIntegerField(null=True, blank=True)
     street_address = models.CharField(max_length=255, null=True, blank=True)
     property_area = models.ForeignKey('AreaType', on_delete=models.CASCADE,null=True, blank=True)
     property_value = models.ForeignKey('Currency',on_delete=models.SET_NULL,null=True, blank=True)                  
     any_note = models.CharField(max_length=500,null=True, blank=True)
-    amenity_name =models.ManyToManyField('Amenity',blank=True)
+    amenity_name =models.ManyToManyField('Amenity',null=True, blank=True)
     is_active = models.BooleanField(default=True)  # Active/In-Active field
     # document_attachment = models.FileField(upload_to='documents/', null=True, blank=True)  # Document attachment
     is_rented = models.BooleanField(choices=[(True, 'Yes'), (False, 'No')], default=False)  # Rented (Yes/No)
@@ -118,6 +118,7 @@ class Property_info(models.Model):
         f" ({self.property_number}) - "
         f" {self.block_name.block_name}"
     )
+
 
     
 class PropertyDocument(models.Model):

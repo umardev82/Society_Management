@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ud*qh7_f+0emfuni_+pbyy=zd*5apy^6ntksb3ojvt$8vi76z%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['18.206.140.7']
+ALLOWED_HOSTS = ['*']
 CORS_ALLOW_ALL_ORIGINS = True
 # ALLOWED_HOSTS = ['api.toornoi.com', 'toornoi.com']
 # CORS_ALLOWED_ORIGINS = ['https://toornoi.com']
